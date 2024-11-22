@@ -39,7 +39,7 @@ which we do in our A10 benchmarks.
 🖥️ > docker run -it --gpus all  -v $(pwd)/result:/projects/result --name marlin marlin_container
 ```
 
-### Step 3: Run kernel benchmarks
+### Step 3: Run microbenchmarks
 
 ```bash
 🐳 > ./runme.sh # about 10 minutes
@@ -47,16 +47,15 @@ which we do in our A10 benchmarks.
 
 The results on Figures 1, 12 and 9 can be found in the ```results/``` folder. Specifically, in figures ```peak_smarlin.pdf```, and ```models.pdf```.
 
-# Step-by-Step Instructions
+# Additional Step-by-Step Instructions
 
-
-### (0) [Optional] Run MARLIN tests
+### (4) [Optional] Run MARLIN tests
 
 ```bash
 🐳 > ./test/runme.sh
 ```
 
-### (1) To reproduce the results on Fig. 10
+### (5) To reproduce the results on Fig. 10
 
 Stop the docker container (only if running)
 
@@ -93,4 +92,4 @@ inside the container, rerun the benchmark
 🖥️ > sudo nvidia-smi --gpu-reset
 ```
 
-### (2) To reproduce the results on Fig. 11 13, 14, Table 1 ? # Jiale
+### (6) To reproduce the results on Fig. 11 13, 14, Table 1 ? # Jiale
