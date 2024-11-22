@@ -4,3 +4,6 @@
 [submodule "baselines/exllamav2"]
 	path = baselines/exllamav2
 	url = https://github.com/turboderp/exllamav2.git
+[submodule "baselines/bitsandbytes"]
+	path = baselines/bitsandbytes
+	url = https://github.com/TimDettmers/bitsandbytes.git
