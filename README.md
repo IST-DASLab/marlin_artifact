@@ -50,13 +50,13 @@ The results on Figures 1, 12 and 9 can be found in the ```results/``` folder. Sp
 # Step-by-Step Instructions
 
 
-### (1) Run MARLIN tests
+### (0) [Optional] Run MARLIN tests
 
 ```bash
 🐳 > ./test/runme.sh
 ```
 
-### (2) To reproduce the results on Fig. 10
+### (1) To reproduce the results on Fig. 10
 
 Stop the docker container (only if running)
 
@@ -65,7 +65,7 @@ Stop the docker container (only if running)
 ```
 
 In order to reproduce our "sustainable performance" benchmarks, the GPU clocks need to be locked to their respective base values
-using. For instance, in the A10
+using. For instance, in the A10:
 
 ```bash
 🖥️ > sudo nvidia-smi --lock-gpu-clocks=885,885 #BASE_GPU_CLOCK
@@ -93,4 +93,4 @@ inside the container, rerun the benchmark
 🖥️ > sudo nvidia-smi --gpu-reset
 ```
 
-### (3) To reproduce the results on Fig. 11 13, 14, Table 1 ? # Jiale
+### (2) To reproduce the results on Fig. 11 13, 14, Table 1 ? # Jiale
