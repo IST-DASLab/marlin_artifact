@@ -87,17 +87,18 @@ marlin_df = pd.read_csv("result/marlin.csv")
 a10=[]
 for model in models:
     a10.append( marlin_df[(marlin_df.model==model)]["tot_q_sp"].values[0] )
-rtx3090 = [3.60, 3.69, 4.14, 4.05, 4.25]
-a6000 = [3.40, 3.65, 3.78, 3.86, 3.80]
-a100 = [2.22, 2.80, 3.04, 3.20, 3.64]
+#rtx3090 = [3.60, 3.69, 4.14, 4.05, 4.25]
+#a6000 = [3.40, 3.65, 3.78, 3.86, 3.80]
+#a100 = [2.22, 2.80, 3.04, 3.20, 3.64]
 
 plt.figure(figsize=(17.5, 7.5))
 plt.grid()
-plt.xticks([1.5, 6.5, 11.5, 16.5, 21.5], models)
-plt.bar([5 * i + 0 for i in range(5)], a10, width=1, label="NVIDIA A10")
-plt.bar([5 * i + 1 for i in range(5)], rtx3090, width=1, label="NVIDIA 3090")
-plt.bar([5 * i + 2 for i in range(5)], a6000, width=1, label="NVIDIA A6000")
-plt.bar([5 * i + 3 for i in range(5)], a100, width=1, label="NVIDIA A100")
+#plt.xticks([1.5, 6.5, 11.5, 16.5, 21.5], models)
+plt.xticks([0, 1, 2, 3, 4], models)
+plt.bar([i + 0 for i in range(5)], a10, width=0.5, label="NVIDIA A10")
+#plt.bar([5 * i + 1 for i in range(5)], rtx3090, width=1, label="NVIDIA 3090")
+#plt.bar([5 * i + 2 for i in range(5)], a6000, width=1, label="NVIDIA A6000")
+#plt.bar([5 * i + 3 for i in range(5)], a100, width=1, label="NVIDIA A100")
 plt.ylim(None, 5)
 plt.legend(loc="upper center", ncol=6)
 plt.title("Marlin (group=128) performance on layer shapes of popular models - BATCHSIZE 16")

@@ -39,6 +39,7 @@ conda activate torchao
 log_file=$DIR/torchao.csv
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 python3.10 benchmark/ao_bench.py > $log_file
+conda deactivate
 
 conda deactivate
-python plot.py
+python3.10 plot.py

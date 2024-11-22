@@ -42,14 +42,9 @@ RUN conda install nvidia/label/cuda-11.8.0::cuda-toolkit
 RUN conda env config vars set CUDA_HOME="/root/miniconda3/envs/marlin"
 RUN conda env config vars set CUDA_TOOLKIT_ROOT_DIR=$CUDA_HOME
 RUN conda env config vars set LD_LIBRARY_PATH="$CUDA_HOME/lib:$LD_LIBRARY_PATH"
-RUN conda env config vars set LIBRARY_PATH=$CUDA_HOME/lib:$LIBRARY_PATH
-RUN conda env config vars set LD_LIBRARY_PATH=$CUDA_HOME/lib:$LD_LIBRARY_PATH
-RUN conda env config vars set CPATH=/root/miniconda3/envs/marlin/targets/x86_64-linux/include/:$CPATH
-RUN conda env config vars set LD_LIBRARY_PATH=/root/miniconda3/envs/marlin/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
-RUN conda env config vars set PATH=$CUDA_HOME/bin:$PATH
+RUN python3 -m pip install "numpy<2"
 RUN source deactivate
 SHELL ["conda", "run", "-n", "marlin", "/bin/bash", "-c"]
-RUN python3 -m pip install "numpy<2"
 RUN pip install .
 RUN source deactivate
 

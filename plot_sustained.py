@@ -34,20 +34,20 @@ expected = [ideal(m, N, K) for m in batchsizes]
 expected2 = [ideal2(m, N, K) for m in batchsizes]
 
 ####
-marlin_df = pd.read_csv("result/marlin.csv")
+marlin_df = pd.read_csv("result/marlin_sustained.csv")
 marlin=marlin_df[(marlin_df.model=="ideal")&(marlin_df.batch<=128)]["tot_q_sp"].tolist()
 sparse_marlin=marlin_df[(marlin_df.model=="ideal")&(marlin_df.batch<=128)]["tot_q_2_4_sp"].tolist()
 
-awq_df = pd.read_csv("result/awq.csv").astype({"batch": "int32"})
+awq_df = pd.read_csv("result/awq_sustained.csv").astype({"batch": "int32"})
 awq = awq_df[(awq_df.model=="ideal")&(awq_df.batch<=128)]["tot_q_sp"].tolist()
 
-torch_df = pd.read_csv("result/torchao.csv")
+torch_df = pd.read_csv("result/torchao_sustained.csv")
 torch = torch_df[(torch_df.M<=128)]["speedup"].tolist()
 
-bitsandbytes_df = pd.read_csv("result/bitsandbytes.csv")
+bitsandbytes_df = pd.read_csv("result/bitsandbytes_sustained.csv")
 bitsandbytes = bitsandbytes_df[(bitsandbytes_df.model=="ideal")&(bitsandbytes_df.batch<=128)]["tot_q_sp"].tolist()
 
-exllamav2_df = pd.read_csv("result/exllamav2.csv")
+exllamav2_df = pd.read_csv("result/exllamav2_sustained.csv")
 exllamav2 = exllamav2_df[(exllamav2_df.model=="ideal")&(exllamav2_df.batch<=128)]["tot_q_sp"].tolist()
 ####
 
