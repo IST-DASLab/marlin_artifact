@@ -84,7 +84,7 @@ inside the container, rerun the benchmark
 🐳 > ./runme_sustained.sh # Check results on the result/ folder
 ```
 
-To reset the GPU again to the initial configuration
+[Optional] To reset the GPU again to the initial configuration
 
 ```bash
 # stop the container
