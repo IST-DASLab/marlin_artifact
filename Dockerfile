@@ -35,7 +35,7 @@ RUN ~/miniconda3/bin/conda init bash
 ENV PATH=/root/miniconda3/bin:$PATH
 
 # Install MARLIN
-#RUN python3 -m pip install .
+RUN python3 -m pip install .
 RUN conda create -y --name marlin python=3.10 -y
 SHELL ["conda", "run", "-n", "marlin", "/bin/bash", "-c"]
 RUN pip install torch==2.1.0+cu118 --index-url https://download.pytorch.org/whl/cu118/
@@ -98,8 +98,19 @@ RUN source deactivate
 #SHELL ["conda", "deactivate"]
 
 # Install bitsandbytes
-WORKDIR /projects/baselines/
-RUN conda env create -f env.yml
+RUN conda create -y --name bitsandbytes python=3.10 -y
+SHELL ["conda", "run", "-n", "bitsandbytes", "/bin/bash", "-c"]
+#RUN pip install --force-reinstall 'https://github.com/bitsandbytes-foundation/bitsandbytes/releases/download/0.43.2/bitsandbytes-0.43.2-py3-none-manylinux_2_24_x86_64.whl'
+#WORKDIR /projects/baselines/
+#RUN conda env create -f env.yml
+WORKDIR /projects/baselines/bitsandbytes
+RUN pip install -r requirements-dev.txt
+RUN conda install cmake
+RUN cmake -DCOMPUTE_BACKEND=cuda -S .
+RUN make CUDA_VERSION=118
+RUN pip install -e .
+RUN python -m pip install torch==2.1.0+cu118 --index-url https://download.pytorch.org/whl/cu118/
+RUN python3 -m pip install "numpy<2"
 RUN source deactivate
 
 # Install AutoAWQ_kernels
