@@ -35,7 +35,7 @@ RUN ~/miniconda3/bin/conda init bash
 ENV PATH=/root/miniconda3/bin:$PATH
 
 # Install MARLIN
-RUN python3 -m pip install .
+#RUN python3 -m pip install .
 RUN conda create -y --name marlin python=3.10 -y
 SHELL ["conda", "run", "-n", "marlin", "/bin/bash", "-c"]
 RUN pip install torch==2.1.0+cu118 --index-url https://download.pytorch.org/whl/cu118/
