@@ -37,7 +37,7 @@ docker run -it --gpus all  -v /home/ubuntu/marlin_ae/docker_test/marlin_artifact
 ### Step 3: Run kernel benchmarks
 
 ```bash
-./benchmark/runme_sustained.sh
+./runme.sh
 ```
 
 The results on Figures 1, 12 and 9 can be found in the ```results/``` folder. Specifically, in figures ```peak_smarlin.pdf```, and ```models.pdf```.
