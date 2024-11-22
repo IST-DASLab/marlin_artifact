@@ -14,26 +14,52 @@ Additionally, it includes Sparse-Marlin, an extension of the MARLIN kernels addi
 ```bash
 cd marlin
 docker build -t marlin_container .
-docker run -it --gpus all --name <your_container_name> marlin_container
 ```
 
-### Step 2: run tests
+### Step 2: run the container
+
+```bash
+docker run -it --gpus all  -v /home/ubuntu/marlin_ae/docker_test/marlin_artifact/result:/projects/result --name <your_container_name> marlin_container
+```
+
+### Step 3: run MARLIN tests
 
 ```
+conda activate marlin
 python3 test.py
 python3 test_2_4.py
 ```
 
-### Step 3: run kernel benchmarks
+### Step 4: run kernel benchmarks
 
 ```
-python3 bench.py
+./runme.sh
+python plot.py
 ```
 
 # Step-by-Step Instructions
 
-(1) To reproduce the results on Fig 1
+(1) To reproduce the results on Fig. 1 and Fig. 12 and Fig. 9
 
 ```
-...
+./runme.sh
+python plot.py
+```
+
+(3) To reproduce the results on Fig. 10
+
+Stop the docker container, if running.
+
+```
+sudo nvidia-smi --lock-gpu-clocks=885,885 # BASE_GPU_CLOCK
+sudo nvidia-smi --lock-memory-clocks=6251,6251 # BASE_MEM_CLOCK
+```
+
+```bash
+docker run -it --gpus all  -v /home/ubuntu/marlin_ae/docker_test/marlin_artifact/result:/projects/result --name <your_container_name> marlin_container
+```
+
+```
+./runme.sh
+python plot_sustained.py
 ```
