@@ -7,59 +7,92 @@ Additionally, it includes Sparse-Marlin, an extension of the MARLIN kernels addi
 
 * NVIDIA GPU with compute capability >= 8.0 (Ampere or Ada, MARLIN is not yet optimized for Hopper)
 
-## Getting Started Guide
+# Getting Started Guide
 
-### Step 1: build the container from scratch
+### Step 0: Disable ECC support
+
+If ECC is enabled (e.g., on an A10), then the maximum achievable memory bandwidth will be 10-15% lower
+than in the official spec sheet as every memory requests will contain checksum overheads. This can be disabled via
+
+```
+sudo nvidia-smi -e 0
+```
+
+which we do in our A10 benchmarks.
+
+### Step 1: Build the container from scratch
 
 ```bash
-cd marlin
+git clone --recurse-submodules https://github.com/IST-DASLab/marlin_artifact.git
+cd marlin_artifact
 docker build -t marlin_container .
 ```
 
-### Step 2: run the container
+### Step 2: Run the container
 
 ```bash
-docker run -it --gpus all  -v /home/ubuntu/marlin_ae/docker_test/marlin_artifact/result:/projects/result --name <your_container_name> marlin_container
+docker run -it --gpus all  -v /home/ubuntu/marlin_ae/docker_test/marlin_artifact/result:/projects/result --name marlin marlin_container
 ```
 
-### Step 3: run MARLIN tests
+### Step 3: Run kernel benchmarks
 
-```
-conda activate marlin
-python3 test.py
-python3 test_2_4.py
+```bash
+./benchmark/runme_sustained.sh
 ```
 
-### Step 4: run kernel benchmarks
-
-```
-./runme.sh
-python plot.py
-```
+The results on Figures 1, 12 and 9 can be found in the ```results/``` folder. Specifically, in figures ```peak_smarlin.pdf```, and ```models.pdf```.
 
 # Step-by-Step Instructions
 
-(1) To reproduce the results on Fig. 1 and Fig. 12 and Fig. 9
 
+### (1) Run MARLIN tests
+
+```bash
+./test/runme.sh
 ```
-./runme.sh
-python plot.py
+
+### (2) To reproduce the results on Fig. 10
+
+Stop the docker container (only if running)
+
+```bash
+exit
 ```
 
-(3) To reproduce the results on Fig. 10
+In order to reproduce our "sustainable performance" benchmarks, the GPU clocks need to be locked to their respective base values
+using:
 
-Stop the docker container, if running.
-
+```bash
+sudo nvidia-smi --lock-gpu-clocks=BASE_GPU_CLOCK --lock-memory-clocks=BASE_MEM_CLOCK
 ```
+
+For instance, in the A10
+
+```bash
 sudo nvidia-smi --lock-gpu-clocks=885,885 # BASE_GPU_CLOCK
 sudo nvidia-smi --lock-memory-clocks=6251,6251 # BASE_MEM_CLOCK
 ```
 
+Rerun the container
+
 ```bash
-docker run -it --gpus all  -v /home/ubuntu/marlin_ae/docker_test/marlin_artifact/result:/projects/result --name <your_container_name> marlin_container
+docker rm marlin # only if already exists an instance of the container
+docker run -it --gpus all  -v /home/ubuntu/marlin_ae/docker_test/marlin_artifact/result:/projects/result --name marlin marlin_container
 ```
 
+inside the container, rerun the benchmark
+
+```bash
+./runme_sustained.sh # Check results on the result/ folder
 ```
-./runme.sh
-python plot_sustained.py
+
+To reset the GPU again to the initial configuration
+
+```bash
+# stop the container
+exit
+# run on your machine
+sudo nvidia-smi --gpu-reset
 ```
+
+### (3) To reproduce the results on Fig. 11 13, 14, Table 1 ? # Jiale
