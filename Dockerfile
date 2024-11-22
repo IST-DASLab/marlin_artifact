@@ -20,6 +20,8 @@ RUN apt-get update && apt-get install -y \
     git \
     vim
 
+ENV TORCH_CUDA_ARCH_LIST="8.6"
+
 #RUN python3 -m pip install torch==2.1.0+cu118 --index-url https://download.pytorch.org/whl/cu118/
 #RUN python3 -m pip install "pybind11>=2.12"
 #RUN python3 -m pip install "numpy<2"
@@ -96,7 +98,7 @@ RUN source deactivate
 #SHELL ["conda", "deactivate"]
 
 # Install bitsandbytes
-WORKDIR /projects/baselines/bitsandbytes
+WORKDIR /projects/baselines/
 RUN conda env create -f env.yml
 RUN source deactivate
 
