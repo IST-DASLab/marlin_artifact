@@ -7,3 +7,6 @@
 [submodule "baselines/bitsandbytes"]
 	path = baselines/bitsandbytes
 	url = https://github.com/TimDettmers/bitsandbytes.git
+[submodule "baselines/ao"]
+	path = baselines/ao
+	url = https://github.com/pytorch/ao.git
