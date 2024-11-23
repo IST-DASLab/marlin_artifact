@@ -22,7 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '--model-path', type=str, help='path to the model checkpoint folder (HuggingFace format)',
+        '--model-path', type=str, help='path to the model checkpoint folder (Hugging Face format)',
     )
     parser.add_argument(
         '--n-gpus', type=int, default=1, help='number of GPUs'
@@ -144,6 +144,7 @@ def main():
             'vllm-enforce-eager': vllm_enforce_eager,
             'time_full': time_full,
             'time_first': time_first,
+            'mean_time_exclude_first': (sum(time_full[n_warmup_reps:]) - sum(time_first[n_warmup_reps:])) / (count_reps - n_warmup_reps),
         }
         all_metrics.append(metrics)
         print(metrics)

@@ -44,7 +44,7 @@ which we do in our A10 benchmarks.
 ### Step 2: Run the container
 
 ```bash
-🖥️ > docker run --rm -it --gpus all -v $(pwd)/result:/projects/result -v $(pwd)/../models:/projects/models --name marlin marlin_container
+🖥️ > docker run -it --gpus all -v $(pwd)/result:/projects/result --name marlin marlin_container
 ```
 
 ### Step 3: Run microbenchmarks
@@ -100,4 +100,125 @@ inside the container, rerun the benchmark
 🖥️ > sudo nvidia-smi --gpu-reset
 ```
 
-### (6) To reproduce the results on Fig. 11 13, 14, Table 1 ? # Jiale
+### (6) Roofline Plot: to reproduce the results on Fig. 11
+
+TODO
+
+# End-to-End Benchmarks
+
+We provide end-to-end benchmarks to evaluate the performance of different large language models (LLMs).
+
+### Before Running
+
+Download LLM checkpoints.
+
+We used the following checkpoints for our evaluation. You can download the ones you want to test from Hugging Face and place them in the `models` folder:
+
+- [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf),
+[Llama-2-7B-Marlin](https://huggingface.co/neuralmagic/llama-2-7b-chat-marlin),
+[Llama-2-7B-Marlin-Sparse](https://huggingface.co/nm-testing/Llama-2-7b-pruned2.4-Marlin_24)
+
+- [Llama-2-13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf),
+[Llama-2-13B-Marlin](https://huggingface.co/robertgshaw2/llama-2-13b-chat-marlin)
+
+- [Yi-34B](https://huggingface.co/NousResearch/Nous-Hermes-2-Yi-34B),
+[Yi-34B-Marlin](https://huggingface.co/neuralmagic/Nous-Hermes-2-Yi-34B-marlin)
+
+- [Llama-2-70B](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf),
+[Llama-2-70B-Marlin](https://huggingface.co/softmax/Llama-2-70b-chat-hf-marlin)
+
+- [Falcon-180B](https://huggingface.co/tiiuae/falcon-180B-chat),
+[Falcon-180B-Marlin](https://huggingface.co/softmax/falcon-180B-chat-marlin)
+
+Run the docker container:
+
+```bash
+🖥️ > docker run --rm -it --gpus all -v $(pwd)/models:/projects/models --name marlin marlin_container
+```
+
+Inside container, activate the conda virtual environment.
+
+```bash
+🖥️ > conda activate vllm
+```
+
+### Batch Benchmark: to reproduce the results on Fig. 13 and Table 1
+
+Adjust the arguments and run the benchmark with `e2e/batch_bench.py`.
+
+**Example command:**
+
+```bash
+🖥️ > python e2e/batch_bench.py \
+--model-path="/projects/models/CHECKPOINT_PATH" \
+--n-gpus=1 \
+--batch-size-list 1 2 4 8 16 32 64 128 \
+--n-in-tokens=64 \
+--n-out-tokens=64 \
+--n-warmup-reps=10 \
+--n-reps=10 \
+--vllm-gpu-memory-utilization=0.9 \
+--vllm-enforce-eager=False
+```
+
+**Notes:**
+
+- **Replace `CHECKPOINT_PATH`** with the actual path to the model you want to test.
+- **Adjust `--n-gpus`** to the number of GPUs available on your system.
+- **Modify `--batch-size-list`** according to the batch sizes you wish to evaluate.
+- If you encounter errors, consider tweaking `--vllm-gpu-memory-utilization` and `--vllm-enforce-eager` to suit your hardware capabilities.
+
+**Argument Descriptions:**
+
+To customize the benchmarking process using `batch_bench.py`, you can adjust several command-line arguments as per your requirements:
+
+- **`--model-path`**: Specify the path to the model checkpoint folder (in Hugging Face format). Replace `CHECKPOINT_PATH` with the actual directory name of the model you downloaded. For example:
+
+  ```bash
+  --model-path="/projects/models/meta-llama/Llama-2-7b-chat-hf"
+  ```
+
+- **`--n-gpus`**: Set the number of GPUs you want to utilize for testing. For instance, to use one GPU:
+
+  ```bash
+  --n-gpus=1
+  ```
+
+- **`--batch-size-list`**: Provide a list of batch sizes you wish to test. Modify this list based on your testing needs. Example:
+
+  ```bash
+  --batch-size-list 1 2 4 8 16 32 64 128
+  ```
+
+- **`--vllm-gpu-memory-utilization`**: Adjust the ratio of GPU memory reserved for vLLM. If you encounter CUDA out-of-memory errors due to temporary tensors, decrease this value. Increase it to reserve more memory for the key-value cache, allowing for larger batch sizes. Example:
+
+  ```bash
+  --vllm-gpu-memory-utilization=0.9
+  ```
+
+- **`--vllm-enforce-eager`**: Decide whether to force vLLM to use eager mode. Setting it to `False` enables CUDA Graph for better performance. Setting it to `True` disables CUDA Graph, which may save GPU memory but could reduce speed. Example:
+
+  ```bash
+  --vllm-enforce-eager=False
+  ```
+
+Other options that are not necessary to change:
+
+- **`--n-in-tokens`**: Number of input tokens per prompt.
+- **`--n-out-tokens`**: Number of tokens to generate.
+- **`--n-warmup-reps`**: Number of warm-up iterations before benchmarking.
+- **`--n-reps`**: Number of iterations after warm-up.
+- **`--min-runtime`**: Minimum runtime in seconds after warm-up (set to a negative value to disable this option, set to a non-negative value to disable `--n-reps`).
+
+**Metrics**
+
+This script should give you the total time to generate 2nd-64th tokens, measured in seconds.
+You can calculate the speed-ups by running this script on different models and then manually do the division.
+
+Check the output (stdout). The metric is in the `mean_time_exclude_first` field of the printed Python dictionary which looks like this:
+
+```
+{'model_path': ..., 'n_gpus': ..., 'batch_size': ..., 'mean_time_exclude_first': ..., ...}
+```
+
+### QPS Benchmark: to reproduce the results on Fig. 14
