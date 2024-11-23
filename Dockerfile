@@ -23,7 +23,7 @@ RUN pip install matplotlib pandas
 
 ################################# Prepare environments #################################
 
-#ENV TORCH_CUDA_ARCH_LIST="8.6"
+ENV TORCH_CUDA_ARCH_LIST="8.6 8.0"
 
 # Install miniconda
 RUN mkdir -p ~/miniconda3
