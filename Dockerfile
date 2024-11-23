@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN mkdir /projects
 WORKDIR /projects
 
-ADD . /projects
+ADD projects /projects
 
 ENV CUDA_INSTALL_PATH=/usr/local/cuda-11.8
 ENV PATH=$CUDA_INSTALL_PATH/bin:$PATH
