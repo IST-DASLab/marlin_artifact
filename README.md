@@ -25,7 +25,15 @@ than in the official spec sheet as every memory requests will contain checksum o
 
 which we do in our A10 benchmarks.
 
-### Step 1: Build the container from scratch
+### Step 1 [Option 1]: Download an already-built docker image
+```bash
+🖥️ > wget https://zenodo.org/.../marlin.zip
+🖥️ > unzip marlin.zip
+🖥️ > cd marlin
+🖥️ > docker load -i marlin.tar.gz
+```
+
+### Step 1 [Option 2]: Build the container from scratch
 
 ```bash
 🖥️ > git clone --recurse-submodules https://github.com/IST-DASLab/marlin_artifact.git
