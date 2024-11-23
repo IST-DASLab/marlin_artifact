@@ -1,12 +1,12 @@
-[submodule "baselines/llm-awq"]
-	path = baselines/llm-awq
+[submodule "projects/baselines/llm-awq"]
+	path = projects/baselines/llm-awq
 	url = https://github.com/mit-han-lab/llm-awq.git
-[submodule "baselines/exllamav2"]
-	path = baselines/exllamav2
+[submodule "projects/baselines/exllamav2"]
+	path = projects/baselines/exllamav2
 	url = https://github.com/turboderp/exllamav2.git
-[submodule "baselines/bitsandbytes"]
-	path = baselines/bitsandbytes
+[submodule "projects/baselines/bitsandbytes"]
+	path = projects/baselines/bitsandbytes
 	url = https://github.com/TimDettmers/bitsandbytes.git
-[submodule "baselines/ao"]
-	path = baselines/ao
+[submodule "projects/baselines/ao"]
+	path = projects/baselines/ao
 	url = https://github.com/pytorch/ao.git
