@@ -93,7 +93,7 @@ def run_benchmark(
         #print(linear.weight.device)#, quant_config.device)
         hqq_int4mm = HQQLinearTorchWeightOnlyInt4(
             linear, quant_config, compute_dtype=dtype, del_orig=False
-        )
+        ).to("cuda")
         #int4_time = bench_hqq(x, hqq_int4mm, transposed=transposed, tinygemm=True)
         #int4_time = bench_hqq(x, hqq_int4mm, transposed=transposed, tinygemm=True)
         int4_time = benchmark(lambda: hqq_int4mm(x))

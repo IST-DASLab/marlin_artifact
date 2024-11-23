@@ -6,7 +6,7 @@ mkdir -p $DIR
 
 eval "$(conda shell.bash hook)"
 
-export TORCH_CUDA_ARCH_LIST=8.6
+#export TORCH_CUDA_ARCH_LIST=8.6
 
 echo "MARLIN"
 conda activate marlin
