@@ -36,7 +36,7 @@ which we do in our A10 benchmarks.
 ### Step 2: Run the container
 
 ```bash
-🖥️ > docker run -it --gpus all  -v $(pwd)/result:/projects/result --name marlin marlin_container
+🖥️ > docker run --rm -it --gpus all -v $(pwd)/result:/projects/result -v $(pwd)/../models:/projects/models --name marlin marlin_container
 ```
 
 ### Step 3: Run microbenchmarks
