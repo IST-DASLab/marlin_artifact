@@ -25,7 +25,7 @@ than in the official spec sheet as every memory requests will contain checksum o
 
 which we do in our A10 benchmarks.
 
-### Step 1 [Option 1]: Download an already-built docker image
+### Step 1 [Option 1]: Download an already-built docker image
 ```bash
 🖥️ > wget https://zenodo.org/.../marlin.zip
 🖥️ > unzip marlin.zip
@@ -33,18 +33,18 @@ which we do in our A10 benchmarks.
 🖥️ > docker load -i marlin.tar.gz
 ```
 
-### Step 1 [Option 2]: Build the container from scratch
+### Step 1 [Option 2]: Build the container from scratch
 
 ```bash
 🖥️ > git clone --recurse-submodules https://github.com/IST-DASLab/marlin_artifact.git
 🖥️ > cd marlin_artifact
-🖥️ > docker build -t marlin_container . # about 20 minutes
+🖥️ > docker build -t marlin_container . # about 30 minutes
 ```
 
 ### Step 2: Run the container
 
 ```bash
-🖥️ > docker run -it --gpus all -v $(pwd)/result:/projects/result --name marlin marlin_container
+🖥️ > docker run -it --rm --gpus all -v $(pwd)/result:/projects/result --name marlin marlin_container
 ```
 
 ### Step 3: Run microbenchmarks
@@ -53,17 +53,17 @@ which we do in our A10 benchmarks.
 🐳 > ./runme.sh # about 10 minutes
 ```
 
-The results on Figures 1, 12 and 9 can be found in the ```results/``` folder. Specifically, in figures ```peak_smarlin.pdf```, and ```models.pdf```.
+The results on Figures 1, 9, 11, and 12 can be found in the `result` folder. Specifically, in figures `peak_smarlin.pdf`, `models.pdf`, and `marlin_roofline.pdf`.
 
 # Additional Step-by-Step Instructions
 
-### (4) [Optional] Run MARLIN tests
+### Step 4: [Optional] Run MARLIN tests
 
 ```bash
 🐳 > ./test/runme.sh
 ```
 
-### (5) To reproduce the results on Fig. 10
+### Step 5: To reproduce the results on Fig. 10
 
 Stop the docker container (only if running)
 
@@ -81,8 +81,7 @@ using. For instance, in the A10:
 Rerun the container
 
 ```bash
-🖥️ > docker rm marlin # only if already exists "docker: Error response from daemon: Conflict. The container name "/marlin" is already in use by container"
-🖥️ > docker run -it --gpus all  -v $(pwd)/result:/projects/result --name marlin marlin_container
+🖥️ > docker run -it --rm --gpus all -v $(pwd)/result:/projects/result --name marlin marlin_container
 ```
 
 inside the container, rerun the benchmark
@@ -99,10 +98,6 @@ inside the container, rerun the benchmark
 # run on your machine
 🖥️ > sudo nvidia-smi --gpu-reset
 ```
-
-### (6) Roofline Plot: to reproduce the results on Fig. 11
-
-TODO
 
 # End-to-End Benchmarks
 
@@ -136,7 +131,7 @@ Run the docker container.
 docker run --rm -it --gpus all -v $(pwd)/models:/projects/models --name marlin marlin_container
 ```
 
-The following commands should all run inside the docker container.
+_The following commands should all run inside the docker container._
 
 ### Batch Benchmark: to reproduce the results on Fig. 13 and Table 1
 

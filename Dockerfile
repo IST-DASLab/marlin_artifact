@@ -50,7 +50,7 @@ RUN conda env config vars set LD_LIBRARY_PATH=/root/miniconda3/envs/marlin/targe
 RUN conda env config vars set PATH=$CUDA_HOME/bin:$PATH
 RUN source deactivate
 SHELL ["conda", "run", "-n", "marlin", "/bin/bash", "-c"]
-RUN python3 -m pip install "numpy<2"
+RUN python3 -m pip install "numpy<2" matplotlib
 RUN pip install .
 RUN source deactivate
 

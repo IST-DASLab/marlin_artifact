@@ -12,6 +12,7 @@ echo "MARLIN"
 conda activate marlin
 log_file=$DIR/marlin.csv
 python benchmark/marlin_bench.py > $log_file
+python plot_roofline.py
 conda deactivate
 
 echo "AWQ"
