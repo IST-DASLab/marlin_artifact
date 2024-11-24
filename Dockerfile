@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     wget \
     git \
-    vim
+    vim \
+    screen
 RUN pip install matplotlib pandas
 
 ################################# Prepare environments #################################

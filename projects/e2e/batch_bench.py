@@ -22,7 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '--model-path', type=str, help='path to the model checkpoint folder (Hugging Face format)',
+        '--model-path', type=str, required=True, help='path to the model checkpoint folder (Hugging Face format)',
     )
     parser.add_argument(
         '--n-gpus', type=int, default=1, help='number of GPUs'
@@ -43,7 +43,7 @@ def parse_args() -> argparse.Namespace:
         '--n-reps', type=int, default=10, help='number of iterations after warm up (disabled if --min-runtime is non-negative)',
     )
     parser.add_argument(
-        '--min-runtime', type=float, default=100., help='minimum run time after warm up, set to negative to disable',
+        '--min-runtime', type=float, default=-1., help='minimum run time after warm up, set to negative to disable',
     )
     parser.add_argument(
         '--vllm-gpu-memory-utilization', type=float, default=.9, help='ratio of GPU memory reserved for vLLM (decrease to prevent cuda oom caused by temporary tensors; increase to reserve more kv cache for larger batch sizes)',
