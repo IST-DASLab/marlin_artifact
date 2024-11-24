@@ -66,7 +66,7 @@ RUN python3 setup.py install
 RUN source deactivate
 
 # Install exllamav2
-RUN conda create -y --name exllamav2 python=3.8 -y
+RUN conda create -y --name exllamav2 python=3.9 -y
 SHELL ["conda", "run", "-n", "exllamav2", "/bin/bash", "-c"]
 WORKDIR /projects/baselines/exllamav2
 RUN conda install nvidia/label/cuda-12.1.0::cuda-nvcc
