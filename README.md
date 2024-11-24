@@ -33,7 +33,7 @@ which we do in our A10 benchmarks.
 🖥️ > docker load -i marlin.tar.gz
 ```
 
-### Step 1 [Option 2]: Build the container from scratch
+### Step 1 [Option 2]: Build the docker image from scratch
 
 ```bash
 🖥️ > git clone --recurse-submodules https://github.com/IST-DASLab/marlin_artifact.git
@@ -50,7 +50,7 @@ which we do in our A10 benchmarks.
 ### Step 3: Run microbenchmarks
 
 ```bash
-🐳 > ./runme.sh # about 10 minutes
+🐳 > ./runme.sh # about 15 minutes
 ```
 
 The results on Figures 1, 9, 11, and 12 can be found in the `result` folder. Specifically, in figures `peak_smarlin.pdf`, `models.pdf`, and `marlin_roofline.pdf`.
