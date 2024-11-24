@@ -25,7 +25,7 @@ echo "exllamav2"
 conda activate exllamav2
 log_file=$DIR/exllamav2.csv
 cp benchmark/exllamav2_bench.py baselines/exllamav2
-python3.8 baselines/exllamav2/exllamav2_bench.py > $log_file
+python baselines/exllamav2/exllamav2_bench.py > $log_file
 conda deactivate
 
 echo "bitsandbytes"

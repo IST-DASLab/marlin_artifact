@@ -133,7 +133,7 @@ docker run --rm -it --gpus all -v $(pwd)/models:/projects/models --name marlin m
 
 _The following commands should all run inside the docker container._
 
-### Batch Benchmark: to reproduce the results on Fig. 13 and Table 1
+## Batch Benchmark: to reproduce the results on Fig. 13 and Table 1
 
 Adjust the arguments and run the benchmark with `e2e/batch_bench.py`.
 
@@ -291,5 +291,3 @@ e2e/qps_bench.py \
 
 This script should give you the Time to First Token (TTFT) and Time per Output Token (TPOT) metrics.
 Check the output (stdout)!
-
-
