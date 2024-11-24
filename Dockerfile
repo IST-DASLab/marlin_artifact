@@ -104,7 +104,7 @@ RUN pip install hqq pandas
 RUN conda env config vars set PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 RUN source deactivate
 
-# Install vllm
+# Install vLLM
 WORKDIR /projects/e2e
 RUN conda create -y --name vllm python=3.12 -y
 SHELL ["conda", "run", "-n", "vllm", "/bin/bash", "-c"]

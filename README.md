@@ -142,7 +142,7 @@ The following commands should all run inside the docker container.
 
 Adjust the arguments and run the benchmark with `e2e/batch_bench.py`.
 
-**Example command**
+**Example Command**
 
 ```bash
 /root/miniconda3/envs/vllm/bin/python \
@@ -240,9 +240,9 @@ Below are some common `screen` usages:
 
 For more usages, please refer to `screen`'s documentation.
 
-### Run server process
+### Run Server Process
 
-**Example command**
+**Example Command**
 
 ```bash
 /root/miniconda3/envs/vllm/bin/python \
@@ -271,9 +271,9 @@ INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 
 
 
-### Run client process
+### Run Client Process
 
-**Example command**
+**Example Command**
 
 ```bash
 /root/miniconda3/envs/vllm/bin/python \
