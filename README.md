@@ -25,11 +25,8 @@ than in the official spec sheet as every memory requests will contain checksum o
 
 which we do in our A10 benchmarks.
 
-### Step 1 [Option 1]: Download an already-built docker image
+### Step 1 [Option 1]: Download and load an already-built docker image
 ```bash
-🖥️ > wget https://zenodo.org/.../marlin.zip
-🖥️ > unzip marlin.zip
-🖥️ > cd marlin
 🖥️ > docker load -i marlin.tar.gz
 ```
 
@@ -42,6 +39,8 @@ which we do in our A10 benchmarks.
 ```
 
 ### Step 2: Run the container
+
+In `marlin_artifact` folder, run
 
 ```bash
 🖥️ > docker run -it --rm --gpus all -v $(pwd)/result:/projects/result --name marlin marlin_container
@@ -78,7 +77,7 @@ using. For instance, in the A10:
 🖥️ > sudo nvidia-smi --lock-gpu-clocks=885,885 #BASE_GPU_CLOCK
 ```
 
-Rerun the container
+In `marlin_artifact` folder, rerun the container
 
 ```bash
 🖥️ > docker run -it --rm --gpus all -v $(pwd)/result:/projects/result --name marlin marlin_container
@@ -125,7 +124,7 @@ We use the following checkpoints for our evaluation.
 - [Falcon-180B](https://huggingface.co/tiiuae/falcon-180B-chat),
 [Falcon-180B-Marlin](https://huggingface.co/softmax/falcon-180B-chat-marlin)
 
-Run the docker container.
+In `marlin_artifact` folder, run the docker container. _This command is different from the previous one! The mounted folder is `models`!_
 
 ```bash
 docker run --rm -it --gpus all -v $(pwd)/models:/projects/models --name marlin marlin_container
