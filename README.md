@@ -10,8 +10,8 @@ Additionally, it includes Sparse-Marlin, an extension of the MARLIN kernels addi
 # Getting Started Guide
 The following bash prompts indicate where to execute each command\
 ```bash
-🖥️ >  #Local Machine
-🐳 >  #Docker Container
+🖥️ >  # Local Machine
+🐳 >  # Docker Container
 ```
 
 ### Step 0: Disable ECC support
@@ -27,7 +27,7 @@ which we do in our A10 benchmarks.
 
 ### Step 1 [Option 1]: Download and load an already-built docker image
 ```bash
-🖥️ > docker load -i marlin.tar.gz
+🖥️ > docker load -i marlin_container.tar.gz
 ```
 
 ### Step 1 [Option 2]: Build the docker image from scratch
@@ -74,7 +74,7 @@ In order to reproduce our "sustainable performance" benchmarks, the GPU clocks n
 using. For instance, in the A10:
 
 ```bash
-🖥️ > sudo nvidia-smi --lock-gpu-clocks=885,885 #BASE_GPU_CLOCK
+🖥️ > sudo nvidia-smi --lock-gpu-clocks=885,885 # BASE_GPU_CLOCK
 ```
 
 In `marlin_artifact` folder, rerun the container
